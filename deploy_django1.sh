@@ -17,7 +17,7 @@ Task
 
   install_requirements() {
         echo " Installing Dependices " 
-	sudo apt-get install docker.io nginx -y
+	sudo apt-get install docker.io nginx -y docker-compose
   
   
   }
@@ -25,15 +25,15 @@ Task
   required_restarts() {
 
         sudo chown $USER  /var/run/docker.sock 
-	sudo systemctl enable docker
-	sudo systemctl enable nginx
-  sudo  systemctl restart docker
+	#sudo systemctl enable docker
+	#sudo systemctl enable nginx
+        #sudo  systemctl restart docker
   }
 
   deploy() {
              docker build -t notes-app .
-             docker run -d -p 8000:8000 notes-app:latest
-  
+             #docker run -d -p 8000:8000 notes-app:latest
+              docker-compose -d  
   
   
   }
@@ -53,7 +53,7 @@ Task
   fi
  if !  deploy; then 
 	 echo "Deployment Failed "
-	 #sendmail
-   exit 1
+	 # sendmail 
+	 exit 1
 fi
   echo " Deployment Done   "
